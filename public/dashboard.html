@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Poke World</title>
+<link rel="stylesheet" href="css/shared.css"><link rel="stylesheet" href="css/dashboard.css">
+<script type="module" src="js/theme.mjs"></script>
+<script type="module" src="js/dashboard.mjs"></script>
+</head>
+<body data-page="dashboard">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+<a class="brand" href="pokemon.html"><span class="pokeball" aria-hidden="true"></span>POKE<span class="brand-accent">WORLD</span></a>
+<nav class="main-nav" aria-label="Main navigation"><a href="pokemon.html">Pokédex</a>
+<a href="trainer.html">Catcher / Trainers</a>
+<a href="battle.html">Battle Lab</a>
+<a href="dashboard.html" aria-current="page">Dashboard</a></nav>
+<div class="header-actions"><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">☼</button></div>
+</header>
+<main class="container page-content" id="main">
+
+<h1>Dashboard</h1><p class="subtitle">A live overview of the Pokémon database.</p>
+<button id="refresh" class="button" type="button">Refresh statistics</button>
+<p class="status" id="page-status" role="status" aria-live="polite"></p>
+<div class="metrics">
+<div class="panel metric">Pokémon<strong id="count-pokemon">—</strong></div>
+<div class="panel metric">Trainers<strong id="count-trainers">—</strong></div>
+<div class="panel metric">Catches<strong id="count-catches">—</strong></div>
+<div class="panel metric">Moves<strong id="count-moves">—</strong></div>
+</div><div class="charts">
+<section class="panel"><h2>Pokémon by primary type</h2><div id="type-chart"></div></section>
+<section class="panel"><h2>Average base stats</h2><div id="stat-chart"></div></section>
+</div>
+</main>
+<footer class="site-footer"><a class="brand" href="pokemon.html">POKE<span class="brand-accent">WORLD</span></a><p>Explore. Catch. Compare.</p></footer>
+</body></html>

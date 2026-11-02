@@ -1,0 +1,63 @@
+.battle-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.battle-form select {
+    padding: 10px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+#battle-result {
+    margin-top: 24px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Battle Arena Pokémon cards */
+
+.battle-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.battle-display[hidden] {
+    display: none;
+}
+
+.pokemon-card {
+    padding: 25px;
+    background: var(--panel);
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.pokemon-card img {
+    width: 120px;
+    height: 120px;
+    image-rendering: pixelated;
+}
+
+.pokemon-card #pokemon1-stats,
+.pokemon-card #pokemon2-stats {
+    white-space: pre-line;
+    line-height: 2;
+}
+
+.pokemon-card.winner {
+    border-color: var(--mint);
+}
+
+@media (max-width: 700px) {
+    .battle-display {
+        grid-template-columns: 1fr;
+    }
+}
