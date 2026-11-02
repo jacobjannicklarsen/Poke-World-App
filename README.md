@@ -1,4 +1,4 @@
-# PokéWorld
+# Poke World
 
 The four projects are combined in this folder. The original sibling folders are retained as source copies.
 
