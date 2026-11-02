@@ -1,6 +1,3 @@
-node_modules/
-.env
-.env.*
-!.env.example
-*.log
-test-results/
+   .env
+   node_modules/
+   .idea/

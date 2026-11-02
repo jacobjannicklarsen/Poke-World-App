@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard | Poke World</title>
+
+    <link rel="stylesheet" href="pokemon.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+    <style>
+        .dashboard-page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+            gap: 18px;
+        }
+        .dashboard-card {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--panel);
+        }
+        .dashboard-card h3 {
+            margin-top: 0;
+        }
+        .dashboard-card canvas {
+            max-height: 260px; /* Limit charts to 260px in height */
+        }
+    </style>
+    <script src="theme.js" defer></script>
+    <script src="dashboard.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <a class="brand" href="index.html">
+        <span class="pokeball" aria-hidden="true"></span>
+        POKE<span class="brand-accent">WORLD</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="pokemon.html">Pokédex</a>
+    <a href="trainer.html">Trainers</a>
+    <a href="battle.html">Battle Lab</a>
+    <a href="dashboard.html" aria-current="page">Dashboard</a>
+</nav>
+
+    <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button"
+                aria-label="Switch to light theme" aria-pressed="false">☼</button>
+    </div>
+</header>
+
+<main class="dashboard-page">
+    <div class="section-heading">
+        <h1>Dashboard</h1>
+        <p>Pokémon statistics, calculated directly from the database.</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <article class="dashboard-card">
+            <h3>Average attack by type</h3>
+            <canvas id="attackChart"></canvas>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Pokémon count by type</h3>
+            <canvas id="typeChart"></canvas>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Trainers with the most Pokémon</h3>
+            <canvas id="trainerChart"></canvas>
+        </article>
+
+        <article class="dashboard-card">
+            <h3>Average speed by body shape</h3>
+            <canvas id="bodyShapeChart"></canvas>
+        </article>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <a class="brand" href="index.html">
+        POKE<span class="brand-accent">WORLD</span>
+    </a>
+</footer>
+</body>
+</html>

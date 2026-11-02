@@ -1,132 +1,31 @@
-# Poke World
+# PokéWorld
 
-Four vanilla HTML/JavaScript pages, one Express server, and the existing MySQL schema. Integration completed locally on 2 November 2026. The four source directories are unchanged. Nothing was committed, pushed, published, or deployed.
+The four projects are combined in this folder. The original sibling folders are retained as source copies.
 
-## Run locally in VS Code
+## Run locally
 
-1. Open `Poke World.code-workspace` from **this** directory in VS Code. This workspace contains the integrated application. The original multi-root workspace was left unchanged.
-2. Use Node.js 22 or newer, npm, and an existing MySQL 8 database compatible with the supplied dump.
-3. Open a PowerShell terminal in `Poke World App` and run:
+1. Run `npm install` (use `npm.cmd install` if PowerShell blocks npm.ps1).
+2. Configure `.env` using `.env.example` as a guide. The existing Battle Lab settings were copied during the merge.
+3. Start MySQL with the project's existing database. For a fresh database, create `midvejsprojekt_pokemon` in MySQL Workbench, select it, and import `midvejsprojekt_pokemon_data.sql`. The dump replaces tables, so import it only into a fresh database.
+4. Run `npm start` (or `npm.cmd start`).
+5. Open <http://localhost:3000>.
 
-   ```powershell
-   npm.cmd ci
-   Copy-Item -LiteralPath '.env.example' -Destination '.env'
-   code .env
-   ```
+Only this backend needs to run. Stop any older project server using port 3000 first, or set `PORT` in `.env` to another port. Open the pages through the server so their relative API requests work.
 
-   If `.env` already exists, edit it directly instead of replacing it. Enter your own `DBHOST`, `DBPORT`, `DBUSER`, `DBPASSWORD`, and `DBDATABASE` values. The supplied dump names `midvejsprojekt_pokemon`; use the actual name of your existing database. No original credentials were read, copied, or included. Leave `PORT=3000`, or choose another available port.
+## Files
 
-4. Start the server:
+| File | Purpose |
+| --- | --- |
+| `index.html` | Home and links to all features |
+| `pokemon.html`, `pokemon.js`, `pokemon.css` | Pokédex search, type filters, sorting, images, and cries |
+| `trainer.html`, `frontend.js` | Create trainers, register catches, list trainers, and view collections |
+| `battle.html`, `battle.js` | Compare two Pokémon by their total base stats |
+| `dashboard.html`, `dashboard.js` | Four charts using database statistics |
+| `backend.js` | Shared Express server and all MySQL API routes |
+| `style.css`, `theme.js` | Shared layout and saved light/dark theme |
+| `midvejsprojekt_pokemon_data.sql` | Existing database schema and seed data |
+| `midvejsprojekt_pokemon_database.mwb` | Existing MySQL Workbench model |
 
-   ```powershell
-   npm.cmd start
-   ```
+The server reads `DBHOST`, `DBUSER`, `DBPASSWORD`, `DBDATABASE`, and optional `PORT` from `.env`. Database credentials and SQL/model files are not served to the browser.
 
-5. Open **http://localhost:3000/**. The server redirects to `pokemon.html`. The four pages are:
-
-   - http://localhost:3000/pokemon.html
-   - http://localhost:3000/trainer.html
-   - http://localhost:3000/battle.html
-   - http://localhost:3000/dashboard.html
-
-   With a different `PORT`, use that port in the URLs. Use the Express server for the frontend and backend together; browser modules and API calls need HTTP. `npm.cmd run dev` restarts the server when source files change. Stop it with Ctrl+C.
-
-Dependencies are already installed in this delivered folder; `npm.cmd ci` reproduces the installation from `package-lock.json`. Dependencies were installed through npm, never copied from a source `node_modules` folder. Production installs can use `npm.cmd ci --omit=dev` when browser tests are not needed.
-
-## Features and integration decisions
-
-- **Pokédex:** database-backed cards, name/number search, primary or secondary type filtering, and number/name/base-stat sorting.
-- **Catcher / Trainers:** inspect existing trainers and collections; catch a species for a trainer with an explicit form submission. Catches persist in the existing `trainer_pokemon` relationship. Duplicate catches return a readable message. There is no new catch probability or battle simulation rule.
-- **Battle Lab:** preserved original two-Pokémon selection, six-stat comparison, sprite/stat cards, winner highlighting, invalid-selection feedback, and draws. Totals now normalize numeric values. This compares base stats rather than simulating move combat.
-- **Dashboard:** database counts, primary-type distribution, and average base-stat bar charts using accessible native HTML meters; no charting framework required. Use Refresh after catches in another tab.
-- **Shared infrastructure:** original mint/dark/light visual palette, responsive header/footer, active navigation, browser-safe shared rendering and API helpers, persistent `pokemon-theme` preference, and page-specific ES modules/styles.
-- **Backend:** one same-origin Express app and MySQL connection pool, parameterized queries, useful HTTP errors, no automatic imports/migrations. Only `public/` is served. CORS is unnecessary because all pages and API requests share an origin.
-
-Three supplied pages were empty visual shells with an empty `pokemon-grid`; Catcher, Dashboard, and Pokédex had no page scripts. Their requested behavior was implemented during integration. The original `main.js` files were server scripts, not frontend scripts. The browser `fetch('/all')` example inside them was commented out. The integration separates server modules from browser modules and makes the absent frontend connections functional.
-
-## Folder structure
-
-```text
-Poke World App/
-  README.md
-  Poke World.code-workspace
-  package.json
-  package-lock.json
-  .env.example
-  .gitignore
-  public/
-    pokemon.html
-    trainer.html
-    battle.html
-    dashboard.html
-    css/
-      shared.css
-      battle.css
-      dashboard.css
-    js/
-      theme.mjs
-      shared.mjs
-      pokemon.mjs
-      pokedex.mjs
-      trainer.mjs
-      battle.mjs
-      dashboard.mjs
-  server/
-    index.js
-    app.js
-    db.js
-  database/
-    README.md
-    check-schema.sql
-    midvejsprojekt_pokemon_data.sql
-    midvejsprojekt_pokemon_database.mwb
-  docs/
-    INTEGRATION.md
-    TESTING.md
-    source-hashes.json
-  tests/
-    app.test.js
-    browser.cjs
-    fixture-db.cjs
-  test-results/              # generated, ignored screenshots
-  node_modules/             # generated by npm, ignored
-```
-
-## Database setup and compatibility
-
-**No migration is required for a database matching the supplied schema. No MySQL commands were executed during integration.** Configure your existing database in `.env`, then optionally use the read-only checks in `database/check-schema.sql` in MySQL Workbench.
-
-All four SQL dumps are identical; all four Workbench models are identical. One unchanged copy of each is retained. See [database documentation](database/README.md) for hashes, schema relationships, permissions, and optional manual setup on a new empty database.
-
-The original dump contains `DROP TABLE`, foreign-key-disabling, and replacement data statements. It is an archival setup artifact, **not a migration to run against an existing populated database**. Nothing automatically loads it. For a new test database only, create/select an empty schema manually in Workbench and review the dump before importing it there.
-
-The application needs SELECT on `pokemon`, `trainer`, `trainer_pokemon`, and `moves`. Catching also needs INSERT on `trainer_pokemon`. Set `ENABLE_CATCHES=false` to reject catch submissions and use SELECT-only access. Starting the server never writes to the database; a capture writes one relationship only when submitted from the Catcher form or API.
-
-## APIs and legacy paths
-
-| Method | Route | Behavior |
-| --- | --- | --- |
-| GET | `/api/pokemon`, `/all/pokemon`, `/all` | All Pokémon |
-| GET | `/all/water` | Primary Water type |
-| GET | `/all/attackover50` | Attack **>= 50**, descending |
-| GET | `/all/firetypeandhpover50` | Primary Fire and HP **<= 50**, retained original behavior |
-| GET | `/api/trainers` | Existing trainers |
-| GET | `/api/trainers/:id/pokemon` | Trainer collection; 404 for unknown trainer |
-| POST | `/api/catches` | JSON `{ "trainer_id": 1, "pokedex_number": 7 }`; inserts relationship |
-| GET | `/api/stats` | Counts, primary-type distribution, and stat averages |
-| GET | `/api/health` | Read-only database availability check |
-
-`/`, `/index.html`, and `/pokedex.html` redirect to `/pokemon.html`; `/trainers.html` redirects to `/trainer.html`. All page links use the final four filenames. Original filter-route names are intentionally retained despite their imprecise wording. Capture errors use 400 for invalid identifiers, 403 when disabled, 404 for absent referenced records, and 409 for duplicate captures. Database failures return 503 without connection details.
-
-## Validation and remaining checks
-
-```powershell
-npm.cmd test
-npm.cmd run test:browser
-```
-
-The eight Node tests and the headless Edge browser suite passed with the supplied 151 Pokémon data. Browser tests use an offline adapter and intercepted sprite images; they never touch MySQL. Browser testing requires locally installed Microsoft Edge. For installed Chrome instead, run `$env:BROWSER_CHANNEL='chrome'` before the browser command. No browser download is required by the test script.
-
-Live MySQL connection, actual query execution/privileges, persisted real captures, and external sprite availability still require manual verification with your own configuration. Without database configuration the pages and navigation load, and data areas show a database-unavailable message. There is no silent mock-data fallback in the application.
-
-See [integration analysis and file decisions](docs/INTEGRATION.md) and [test evidence and the manual regression checklist](docs/TESTING.md). This is a local classroom application bound to loopback, with no trainer authentication model in the supplied projects.
+Pokémon sprites and cries load from the PokeAPI GitHub repositories; Chart.js loads from jsDelivr. These features require internet access.

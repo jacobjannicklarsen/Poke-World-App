@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Battle Lab | Poke World</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js" defer></script>
+    <script src="battle.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+    <a class="brand" href="index.html">
+        <span class="pokeball" aria-hidden="true"></span>
+        POKE<span class="brand-accent">WORLD</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="pokemon.html">Pokédex</a>
+    <a href="trainer.html">Trainers</a>
+    <a href="battle.html" aria-current="page">Battle Lab</a>
+    <a href="dashboard.html">Dashboard</a>
+</nav>
+
+    <div class="header-actions">
+        <button
+                class="theme-toggle"
+                id="theme-toggle"
+                type="button"
+                aria-label="Switch to light theme"
+                aria-pressed="false"
+        >☼</button>
+    </div>
+</header>
+
+<main class="container page-content">
+
+    <h1>Pokémon Battle Arena</h1>
+    <p>Choose two Pokémon to compare their base stats!</p>
+
+    <div class="battle-form">
+
+        <label for="pokemon1">Pokémon 1:</label>
+        <select id="pokemon1">
+            <option value="">Choose Pokémon</option>
+        </select>
+
+        <label for="pokemon2">Pokémon 2:</label>
+        <select id="pokemon2">
+            <option value="">Choose Pokémon</option>
+        </select>
+
+        <button id="battle-button" class="button">
+            Battle!
+        </button>
+
+    </div>
+
+    <p id="battle-result"></p>
+    <div class="battle-display" id="battle-display" hidden>
+
+    <section class="pokemon-card" id="pokemon1-card">
+        <h2 id="pokemon1-name"></h2>
+        <img id="pokemon1-image" alt="">
+        <p id="pokemon1-stats"></p>
+        <p>Total Base Stats: <strong id="pokemon1-total"></strong></p>
+    </section>
+
+    <section class="pokemon-card" id="pokemon2-card">
+        <h2 id="pokemon2-name"></h2>
+        <img id="pokemon2-image" alt="">
+        <p id="pokemon2-stats"></p>
+        <p>Total Base Stats: <strong id="pokemon2-total"></strong></p>
+    </section>
+
+</div>
+
+</main>
+
+<footer class="site-footer">
+    <a class="brand" href="index.html">
+        POKE<span class="brand-accent">WORLD</span>
+    </a>
+</footer>
+</body>
+</html>

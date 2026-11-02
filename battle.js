@@ -1,5 +1,3 @@
-import { api } from "./shared.mjs";
-import { totalStats } from "./pokemon.mjs";
 const pokemon1Select = document.getElementById("pokemon1");
 const pokemon2Select = document.getElementById("pokemon2");
 const battleButton = document.getElementById("battle-button");
@@ -7,11 +5,11 @@ const battleResult = document.getElementById("battle-result");
 
 let pokemonList = [];
 
-api("/api/pokemon")
+fetch("/all/pokemon")
+    .then(response => { if (!response.ok) throw new Error("Could not load Pokémon"); return response.json(); })
     .then(data => {
 
         pokemonList = data;
-        battleButton.disabled = false;
 
         data.forEach(pokemon => {
 
@@ -29,11 +27,20 @@ api("/api/pokemon")
 
     })
     .catch(error => {
-        
-        battleResult.textContent = error.message;
+        console.error(error);
+        battleResult.textContent = "Could not load Pokémon from the API.";
     });
 
-    function calculateTotal(pokemon) { return totalStats(pokemon); }
+    function calculateTotal(pokemon) {
+
+    return pokemon.hp
+        + pokemon.attack
+        + pokemon.defence
+        + pokemon.special_attack
+        + pokemon.special_defence
+        + pokemon.speed;
+
+}
 
 function showPokemon(pokemon, number, total) {
 
@@ -62,11 +69,11 @@ Speed: ${pokemon.speed}`;
 battleButton.addEventListener("click", () => {
 
     const pokemon1 = pokemonList.find(pokemon =>
-        Number(pokemon.pokedex_number) === Number(pokemon1Select.value)
+        pokemon.pokedex_number === Number(pokemon1Select.value)
     );
 
     const pokemon2 = pokemonList.find(pokemon =>
-        Number(pokemon.pokedex_number) === Number(pokemon2Select.value)
+        pokemon.pokedex_number === Number(pokemon2Select.value)
     );
 
     if (!pokemon1 || !pokemon2) {

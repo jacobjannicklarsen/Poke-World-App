@@ -1,25 +1,20 @@
 {
-  "name": "poke-world",
+  "name": "midvejsprojekt_data_webtek",
   "version": "1.0.0",
-  "private": true,
-  "description": "Four-page vanilla JavaScript Pok\u00e9mon application with Express and MySQL",
-  "main": "server/index.js",
-  "type": "commonjs",
-  "engines": {
-    "node": ">=22"
-  },
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "node --watch server/index.js",
-    "test": "node --test tests/*.test.js",
-    "test:browser": "node tests/browser.cjs"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^18.0.9",
     "express": "^5.3.0",
     "mysql2": "^3.24.6"
-  },
-  "devDependencies": {
-    "playwright": "^1.56.0"
   }
 }

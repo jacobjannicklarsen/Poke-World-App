@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trainers | Poke World</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pokemon.css">
+<script src="theme.js" defer></script>
+<script src="frontend.js" defer></script>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="index.html"><span class="pokeball" aria-hidden="true"></span>POKE<span class="brand-accent">WORLD</span></a><nav class="main-nav" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="pokemon.html">Pokédex</a>
+    <a href="trainer.html" aria-current="page">Trainers</a>
+    <a href="battle.html">Battle Lab</a>
+    <a href="dashboard.html">Dashboard</a>
+</nav><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">☼</button></header>
+<main class="container page-content">
+
+<section class="section-heading"><h1>Trainers & catches</h1><p>Create a trainer and add Pokémon to their collection.</p></section>
+<div class="card-grid">
+<section class="card"><h2>Create a trainer</h2>
+<form id="create-trainer-form" class="trainer-form">
+<label for="TrainerName">Name</label><input class="input" id="TrainerName" maxlength="45" required>
+<label for="TrainerAge">Age</label><input class="input" type="number" id="TrainerAge" min="0" step="1" required>
+<label for="TrainerHometown">Hometown</label><input class="input" id="TrainerHometown" maxlength="45" required>
+<button class="button" id="createTrainerBtn" type="submit">Create trainer</button>
+</form><p id="create-status" role="status"></p></section>
+<section class="card"><h2>Catch a Pokémon</h2>
+<form id="catch-pokemon-form" class="trainer-form">
+<label for="TrainerID">Trainer ID</label><input class="input" type="number" id="TrainerID" min="1" step="1" required>
+<label for="PokedexNumber">Pokédex number</label><input class="input" type="number" id="PokedexNumber" min="1" step="1" required>
+<button class="button" id="giveTrainerPokemon" type="submit">Catch!</button>
+</form><p id="catch-status" role="status"></p></section>
+<section class="card"><h2>All trainers</h2><ul id="trainer-list">Loading trainers…</ul></section>
+<section class="card"><h2>Trainer collection</h2><label for="trainer-select">Trainer</label><select class="select" id="trainer-select"><option value="">Choose a trainer</option></select><p id="trainer-pokemon" role="status"></p></section>
+</div>
+</main>
+<footer class="site-footer"><a class="brand" href="index.html"><span class="pokeball" aria-hidden="true"></span>POKE<span class="brand-accent">WORLD</span></a></footer>
+</body>
+</html>
